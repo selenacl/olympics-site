@@ -1,0 +1,9 @@
+<div class="content-container">
+    <div [ngSwitch]="link">
+        <app-country *ngSwitchDefault></app-country>
+        <app-country *ngSwitchCase="'country'"></app-country>
+        <app-countries *ngSwitchCase="'countries'"></app-countries>
+        <app-athlete *ngSwitchCase="'athlete'"></app-athlete>
+        <app-athletes *ngSwitchCase="'athletes'"></app-athletes>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+.dashboard {
+    background-color: #F5F5F7;
+    height: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.dashboard__bottom {
+  height: 100%;
+  display: flex;
+  justify-content: stretch;
+}
+
+.sidenav {
+  flex: 1;
+  background-color: white;
+}
+
+.content {
+  flex: 4;
+}
+
+:host {
+  height: 90%;
+  width: 95%;
+  border-radius: 50px;
+}

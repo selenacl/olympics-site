@@ -1,0 +1,28 @@
+.sidenav-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+
+    border-right: 1px solid #e6e0e0;
+}
+
+.sidenav__list {
+    overflow: hidden;
+}
+
+.sidenav__list--item {
+    height: 4rem!important;
+    padding-left: 5rem!important;
+}
+
+.sidenav__list--item:hover {
+    height: 4rem!important;
+    padding-left: 5rem!important;
+    border: 1px solid #193C61;
+    border-left: 5px solid #193C61;
+}
+
+:host {
+    display: flex;
+}

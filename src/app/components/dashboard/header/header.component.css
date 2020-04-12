@@ -1,0 +1,30 @@
+.header {
+    background-color: white;
+    display: flex;
+    padding: 0;
+    border-bottom: 1px solid #e6e0e0;
+}
+
+.header__left {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.header__left--item {
+    margin: 0;
+    height: 100%;
+    padding-left: 1rem;
+}
+
+.header__right {
+    display: flex;
+    align-items: center;
+    flex: 4;
+}
+
+.header__right--item {
+    margin: 0;
+    height: 100%;
+}
+
