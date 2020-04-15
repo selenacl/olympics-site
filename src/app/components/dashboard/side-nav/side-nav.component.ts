@@ -8,16 +8,9 @@ import { Location } from '@angular/common';
 })
 export class SideNavComponent implements OnInit {
 
-  @Output() redirect = new EventEmitter<string>();
-
-  constructor(private location: Location) { }
+  constructor() { }
 
   ngOnInit(): void {
-  }
-
-  onClick(link: string) {
-    this.redirect.emit(link);
-    this.location.replaceState(`/${link}`);
   }
 
 }

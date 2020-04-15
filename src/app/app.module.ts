@@ -17,6 +17,14 @@ import { CountriesComponent } from './components/countries/countries.component';
 import { AthleteComponent } from './components/athlete/athlete.component';
 import { AthletesComponent } from './components/athletes/athletes.component';
 
+const appRoutes = [
+  { path: '', component: CountryComponent },
+  { path: 'country', component: CountryComponent },
+  { path: 'countries', component: CountriesComponent },
+  { path: 'athlete', component: AthleteComponent },
+  { path: 'athletes', component: AthletesComponent }
+]
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +43,7 @@ import { AthletesComponent } from './components/athletes/athletes.component';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    RouterModule,
+    RouterModule.forRoot(appRoutes),
     MatIconModule
   ],
   providers: [],
