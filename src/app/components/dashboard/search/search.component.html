@@ -1,0 +1,13 @@
+<form [formGroup]="countryForm" class="searchform">
+    <mat-form-field class="searchform__input">
+        <input type="text" matInput placeholder="States Group" formControlName="CountryGroup" required
+            [matAutocomplete]="autoGroup">
+        <mat-autocomplete #autoGroup="matAutocomplete">
+            <mat-optgroup *ngFor="let group of CountryGroupOptions | async" [label]="group.letter">
+                <mat-option *ngFor="let name of group.names" [value]="name">
+                    {{name}}
+                </mat-option>
+            </mat-optgroup>
+        </mat-autocomplete>
+    </mat-form-field>
+</form>
