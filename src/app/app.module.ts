@@ -24,7 +24,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 const appRoutes = [
-  { path: '', component: CountryComponent },
+  { path: '', redirectTo: '/country', pathMatch: 'full' },
   { path: 'country', component: CountryComponent },
   { path: 'countries', component: CountriesComponent },
   { path: 'athlete', component: AthleteComponent },

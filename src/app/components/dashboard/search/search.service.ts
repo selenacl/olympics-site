@@ -15,4 +15,8 @@ export class SearchService {
     getCountriesByYear(year: number) {
         return this.http.get(Constants.apiUrl + `/countries/${year}`);
     }
+
+    getAthletesByYear(year: number) {
+        return this.http.get(Constants.apiUrl + `/athletes/${year}`);
+    }
 }

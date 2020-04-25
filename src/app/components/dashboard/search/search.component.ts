@@ -5,8 +5,9 @@ import { startWith, map } from 'rxjs/operators';
 import { MatInputModule } from '@angular/material/input';
 import { SearchService } from './search.service';
 import { Constants } from '../../../Constants';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
-export interface CountryGroup {
+export interface SearchGroup {
   letter: string;
   names: string[];
 }
@@ -26,113 +27,54 @@ export const _filter = (opt: string[], value: string): string[] => {
 export class SearchComponent implements OnInit {
 
   public countries;
+  public athletes;
+  public searchList: String = 'country';
 
-  countryForm: FormGroup = this._formBuilder.group({
-    CountryGroup: '',
+  searchForm: FormGroup = this._formBuilder.group({
+    SearchGroup: '',
   });
 
-  CountryGroups: CountryGroup[] = [{
-    letter: 'A',
-    names: []
-  }, {
-    letter: 'B',
-    names: []
-  }, {
-    letter: 'C',
-    names: []
-  }, {
-    letter: 'D',
-    names: []
-  }, {
-    letter: 'E',
-    names: []
-  }, {
-    letter: 'F',
-    names: []
-  }, {
-    letter: 'G',
-    names: []
-  }, {
-    letter: 'H',
-    names: []
-  }, {
-    letter: 'I',
-    names: []
-  }, {
-    letter: 'J',
-    names: []
-  }, {
-    letter: 'K',
-    names: []
-  }, {
-    letter: 'L',
-    names: []
-  }, {
-    letter: 'M',
-    names: []
-  }, {
-    letter: 'N',
-    names: []
-  }, {
-    letter: 'O',
-    names: []
-  }, {
-    letter: 'P',
-    names: []
-  }, {
-    letter: 'Q',
-    names: []
-  }, {
-    letter: 'R',
-    names: []
-  }, {
-    letter: 'S',
-    names: []
-  }, {
-    letter: 'T',
-    names: []
-  }, {
-    letter: 'U',
-    names: []
-  }, {
-    letter: 'V',
-    names: []
-  }, {
-    letter: 'W',
-    names: []
-  }, {
-    letter: 'X',
-    names: []
-  }, {
-    letter: 'Y',
-    names: []
-  }, {
-    letter: 'Z',
-    names: []
-  }];
+  SearchGroups: SearchGroup[];
 
-  CountryGroupOptions: Observable<CountryGroup[]>;
+  SearchGroupOptions: Observable<SearchGroup[]>;
 
-  constructor(private _formBuilder: FormBuilder, private _searchService: SearchService) { }
+  constructor(private _formBuilder: FormBuilder,
+    private _searchService: SearchService,
+    private router: Router) {
 
-  ngOnInit() {
-    this.CountryGroupOptions = this.countryForm.get('CountryGroup')!.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filterGroup(value))
-      );
-
-    this.getCountriesByYear(Constants.YEAR);
   }
 
-  private _filterGroup(value: string): CountryGroup[] {
+  ngOnInit() {
+    // check for route changes
+    this.router.events.subscribe(
+      event => {
+        if (event instanceof NavigationEnd) {
+          this.searchList = this.router.url.substring(1);
+
+          // set search list based on url 
+          if (this.searchList == '' || this.searchList == 'country' || this.searchList == '/countries')
+            this.getCountriesByYear(Constants.YEAR);
+          else if (this.searchList == 'athlete' || this.searchList == 'athletes')
+            this.getAthletesByYear(Constants.YEAR);
+
+          this.initSearchGroups();
+          this.SearchGroupOptions = this.searchForm.get('SearchGroup')!.valueChanges
+            .pipe(
+              startWith(''),
+              map(value => this._filterGroup(value))
+            );
+        }
+      })
+  }
+
+  private _filterGroup(value: string): SearchGroup[] {
     if (value) {
-      return this.CountryGroups
+      return this.SearchGroups
         .map(group => ({ letter: group.letter, names: _filter(group.names, value) }))
         .filter(group => group.names.length > 0);
     }
 
-    return this.CountryGroups;
+    return this.SearchGroups;
   }
 
   getCountriesByYear(year: number) {
@@ -142,10 +84,105 @@ export class SearchComponent implements OnInit {
       () => {
         this.countries.forEach(country => {
           const index: number = country.name.trim().charCodeAt(0) - 65;
-          this.CountryGroups[index].names.push(country.name.trim());
+          this.SearchGroups[index].names.push(country.name.trim());
         });
       }
     );
+  }
+
+  getAthletesByYear(year: number) {
+    this._searchService.getAthletesByYear(year).subscribe(
+      data => { this.athletes = data },
+      err => console.log(err),
+      () => {
+        this.athletes.forEach(athlete => {
+          const index: number = athlete.name.trim().toUpperCase().charCodeAt(0) - 65;
+          this.SearchGroups[index].names.push(athlete.name.trim());
+        });
+      }
+    )
+  }
+
+  initSearchGroups() {
+    this.SearchGroups = [{
+      letter: 'A',
+      names: []
+    }, {
+      letter: 'B',
+      names: []
+    }, {
+      letter: 'C',
+      names: []
+    }, {
+      letter: 'D',
+      names: []
+    }, {
+      letter: 'E',
+      names: []
+    }, {
+      letter: 'F',
+      names: []
+    }, {
+      letter: 'G',
+      names: []
+    }, {
+      letter: 'H',
+      names: []
+    }, {
+      letter: 'I',
+      names: []
+    }, {
+      letter: 'J',
+      names: []
+    }, {
+      letter: 'K',
+      names: []
+    }, {
+      letter: 'L',
+      names: []
+    }, {
+      letter: 'M',
+      names: []
+    }, {
+      letter: 'N',
+      names: []
+    }, {
+      letter: 'O',
+      names: []
+    }, {
+      letter: 'P',
+      names: []
+    }, {
+      letter: 'Q',
+      names: []
+    }, {
+      letter: 'R',
+      names: []
+    }, {
+      letter: 'S',
+      names: []
+    }, {
+      letter: 'T',
+      names: []
+    }, {
+      letter: 'U',
+      names: []
+    }, {
+      letter: 'V',
+      names: []
+    }, {
+      letter: 'W',
+      names: []
+    }, {
+      letter: 'X',
+      names: []
+    }, {
+      letter: 'Y',
+      names: []
+    }, {
+      letter: 'Z',
+      names: []
+    }];
   }
 
 }
