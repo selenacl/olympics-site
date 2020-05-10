@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { Constants } from '../../../Constants';
 
 const httpOptions = {
@@ -9,6 +9,9 @@ const httpOptions = {
 
 @Injectable()
 export class SearchService {
+
+    private data = new BehaviorSubject('');
+    sharedData = this.data.asObservable();
 
     constructor(private http: HttpClient) { }
 
@@ -19,4 +22,9 @@ export class SearchService {
     getAthletesByYear(year: number) {
         return this.http.get(Constants.apiUrl + `/athletes/${year}`);
     }
+
+    nextData(data) {
+        this.data.next(data);
+    }
+
 }

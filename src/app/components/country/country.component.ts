@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SearchService } from '../dashboard/search/search.service';
+import { Observable, Subscribable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-country',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CountryComponent implements OnInit {
 
-  constructor() { }
+  data;
+
+  constructor(private _searchService: SearchService) {
+
+  }
 
   ngOnInit(): void {
+    this._searchService.sharedData.subscribe(data => { this.data = data });
+  }
+
+  getInfo() {
+
   }
 
 }

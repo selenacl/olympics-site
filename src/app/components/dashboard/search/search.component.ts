@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { MatInputModule } from '@angular/material/input';
 import { SearchService } from './search.service';
 import { Constants } from '../../../Constants';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+
 
 export interface SearchGroup {
   letter: string;
@@ -21,14 +22,17 @@ export const _filter = (opt: string[], value: string): string[] => {
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css'],
-  providers: [SearchService]
+  styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
 
   public countries;
   public athletes;
   public searchList: String = 'country';
+  data;
+
+  @Output()
+  selected = new EventEmitter<String>();
 
   searchForm: FormGroup = this._formBuilder.group({
     SearchGroup: '',
@@ -40,7 +44,7 @@ export class SearchComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder,
     private _searchService: SearchService,
-    private router: Router) {
+    private router: Router, ) {
 
   }
 
@@ -64,7 +68,9 @@ export class SearchComponent implements OnInit {
               map(value => this._filterGroup(value))
             );
         }
-      })
+      });
+
+    this._searchService.sharedData.subscribe(data => { this.data = data; console.log(data) });
   }
 
   private _filterGroup(value: string): SearchGroup[] {
@@ -101,6 +107,15 @@ export class SearchComponent implements OnInit {
         });
       }
     )
+  }
+
+  onSelect(event: Event) {
+    this.selected.emit(event.toString());
+    this.newData(event.toString());
+  }
+
+  newData(data) {
+    this._searchService.nextData(data);
   }
 
   initSearchGroups() {

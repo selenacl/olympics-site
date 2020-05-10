@@ -4,7 +4,8 @@
             [matAutocomplete]="autoGroup">
         <mat-autocomplete #autoGroup="matAutocomplete">
             <mat-optgroup *ngFor="let group of SearchGroupOptions | async" [label]="group.letter">
-                <mat-option *ngFor="let name of group.names" [value]="name">
+                <mat-option *ngFor="let name of group.names" [value]="name"
+                    (click)="onSelect($event.target.textContent)">
                     {{name}}
                 </mat-option>
             </mat-optgroup>

@@ -21,7 +21,9 @@ import { AthleteComponent } from './components/athlete/athlete.component';
 import { AthletesComponent } from './components/athletes/athletes.component';
 import { SearchComponent } from './components/dashboard/search/search.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { SearchService } from './components/dashboard/search/search.service';
 
 const appRoutes = [
   { path: '', redirectTo: '/country', pathMatch: 'full' },
@@ -57,9 +59,10 @@ const appRoutes = [
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [SearchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
