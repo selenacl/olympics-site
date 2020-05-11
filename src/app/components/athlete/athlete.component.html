@@ -1,3 +1,9 @@
 <div class="athlete-container border">
     <h2>{{data}}</h2>
+    <div class="cards">
+        <app-medal-card class="card" [cardTitle]="'Bronze Trophies'" [cardValue]="bronze"></app-medal-card>
+        <app-medal-card class="card" [cardTitle]="'Silver Trophies'" [cardValue]="silver"></app-medal-card>
+        <app-medal-card class="card" [cardTitle]="'Gold Trophies'" [cardValue]="gold"></app-medal-card>
+        <app-medal-card class="card" [cardTitle]="'Total Trophies'" [cardValue]="total"></app-medal-card>
+    </div>
 </div>

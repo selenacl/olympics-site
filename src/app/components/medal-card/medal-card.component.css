@@ -1,0 +1,15 @@
+.medal-card-container {
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.medal-card-footer {
+    background-color: #F47257;
+    color: white;
+    height: 4rem;
+}
+
+.cards {
+    display: flex;
+    justify-content: space-between;
+}

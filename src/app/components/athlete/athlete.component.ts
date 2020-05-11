@@ -9,6 +9,10 @@ import { SearchService } from '../dashboard/search/search.service';
 export class AthleteComponent implements OnInit {
 
   data;
+  bronze: number = 10;
+  silver: number = 20;
+  gold: number = 5;
+  total: number = 35;
 
   constructor(private _searchService: SearchService) { }
 

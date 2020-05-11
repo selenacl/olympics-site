@@ -24,6 +24,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { SearchService } from './components/dashboard/search/search.service';
+import { MedalCardComponent } from './components/medal-card/medal-card.component';
+import { MatCardModule } from '@angular/material/card';
 
 const appRoutes = [
   { path: '', redirectTo: '/country', pathMatch: 'full' },
@@ -44,7 +46,8 @@ const appRoutes = [
     CountriesComponent,
     AthleteComponent,
     AthletesComponent,
-    SearchComponent
+    SearchComponent,
+    MedalCardComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,8 @@ const appRoutes = [
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    MatCardModule
   ],
   providers: [SearchService],
   bootstrap: [AppComponent]
